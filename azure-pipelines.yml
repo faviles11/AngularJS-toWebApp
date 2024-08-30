@@ -1,0 +1,34 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: |
+    echo "Current working directory:"
+    pwd
+    echo "Listing files in the current directory:"
+    ls -la
+  displayName: 'Print working directory and list contents'
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.17'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+  displayName: 'Install dependencies'
+
+- script: |
+    npm run build --prod
+  displayName: 'Build Angular project'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'ToComparex'
+    appName: 'mernappdeploymenttestfabian'
+    package: '$(System.DefaultWorkingDirectory)/dist/frontend'
+    appType: 'webAppWindows'
+  displayName: 'Deploy to Azure Web App'

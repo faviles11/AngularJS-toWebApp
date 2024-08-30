@@ -27,8 +27,8 @@ steps:
 
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'ToComparex'
+    azureSubscription: 'ToComparex2'
     appName: 'mernappdeploymenttestfabian'
     package: '$(System.DefaultWorkingDirectory)/dist/frontend'
-    appType: 'webAppWindows'
+    appType: 'webApp'
   displayName: 'Deploy to Azure Web App'
